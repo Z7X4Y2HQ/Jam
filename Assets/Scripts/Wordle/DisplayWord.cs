@@ -85,6 +85,6 @@ public class DisplayWord : ReturnKeyCode
                 triedList.text += playerGuess[i].text;
             }
         }
-        triedList.text += "<color=white>\n";
+        triedList.text += "<color=black>\n";
     }
 }

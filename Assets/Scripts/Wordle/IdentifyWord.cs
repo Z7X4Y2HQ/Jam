@@ -19,7 +19,7 @@ public class IdentifyWord : DisplayWord
     public TMP_Text WinLoseStatusText;
     public TMP_Text triesText;
     public TMP_Text wordText;
-    public GameObject RetryButton;
+    // public GameObject RetryButton;
     public static string gameState = "";
     private int currentChar = 0;
     public static int tries = 0;
@@ -77,17 +77,17 @@ public class IdentifyWord : DisplayWord
                     {
                         WinLoseStatusText.text = "DAMNN!";
                         gameState = "win";
-                        RetryButton.SetActive(true);
+                        // RetryButton.SetActive(true);
                     }
                     else
                     {
                         if (tries == 5)
                         {
-                            WinLoseStatusText.text = "SUCKER!";
+                            WinLoseStatusText.text = "WORTHLESS!";
                             wordText.text = "THE WORD WAS '" + actualWord.ToUpper() + "'";
                             triesText.text = "TRIES: 6";
                             gameState = "lose";
-                            RetryButton.SetActive(true);
+                            // RetryButton.SetActive(true);
                         }
                         else
                         {
@@ -97,7 +97,7 @@ public class IdentifyWord : DisplayWord
                             triesText.text = "TRIES: " + tries;
                             WinLoseStatusText.text = "GUESS THE COMPLETE WORD";
                             gameState = "";
-                            RetryButton.SetActive(false);
+                            // RetryButton.SetActive(false);
                             currentChar = 0;
                             return;
                         }
@@ -122,22 +122,22 @@ public class IdentifyWord : DisplayWord
         actualWord = wordsToGuessList[Random.Next(0, length)];
     }
 
-    public void Retry()
-    {
-        ClearWord();
+    // public void Retry()
+    // {
+    //     ClearWord();
 
-        currentChar = 0;
-        wordText.text = "";
-        tries = 0;
-        triesText.text = "TRIES: 0";
-        triedList.text = "";
-        gameState = "";
-        foreach (TMP_Text Underline in playerGuess)
-        {
-            Underline.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().color = Color.white;
-        }
-        triedList.text = "";
-        RetryButton.SetActive(false);
-        SetWord();
-    }
+    //     currentChar = 0;
+    //     wordText.text = "";
+    //     tries = 0;
+    //     triesText.text = "TRIES: 0";
+    //     triedList.text = "";
+    //     gameState = "";
+    //     foreach (TMP_Text Underline in playerGuess)
+    //     {
+    //         Underline.transform.GetChild(0).gameObject.GetComponent<TMP_Text>().color = Color.white;
+    //     }
+    //     triedList.text = "";
+    //     RetryButton.SetActive(false);
+    //     SetWord();
+    // }
 }

@@ -7,6 +7,20 @@ public class Transporter : MonoBehaviour
 {
     public Transform roomSpawnPoint;
     public Transform roadSpawnPoint;
+    public GameObject InteractE;
+
+    private void OnTriggerEnter(Collider other)
+    {
+        InteractE.SetActive(true);
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        InteractE.SetActive(false);
+    }
+
+
+
     private void OnTriggerStay(Collider other)
     {
         Debug.Log("Other name" + other.gameObject.name);
@@ -14,12 +28,19 @@ public class Transporter : MonoBehaviour
         {
             if (gameObject.name == "RoomElevatorFloor")
             {
-                other.gameObject.transform.position = roadSpawnPoint.position;
+                TransortCharacter(other, roadSpawnPoint.position);
             }
             else if (gameObject.name == "RoadElevatorFloor")
             {
-                other.gameObject.transform.position = roomSpawnPoint.position;
+                TransortCharacter(other, roomSpawnPoint.position);
             }
         }
+    }
+
+    private void TransortCharacter(Collider other, Vector3 position)
+    {
+        other.GetComponent<CharacterController>().enabled = false;
+        other.gameObject.transform.position = position;
+        other.GetComponent<CharacterController>().enabled = true;
     }
 }
