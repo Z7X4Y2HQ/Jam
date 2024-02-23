@@ -8,7 +8,6 @@ public class Elevator : MonoBehaviour
     public TMP_Text elevatorClose;
     public TMP_Text elevatorOpenText;
     private bool elevatorOpen;
-    public Wardrobe wardrobe;
     Animator animator;
 
     private void Start()
@@ -18,16 +17,13 @@ public class Elevator : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (wardrobe.readyForOut)
-        {
-            animator.SetBool("ElevatorOpen", true);
-        }
+        animator.SetBool("ElevatorOpen", true);
         elevatorClose.text = "Elevator Close : Yes";
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E) && wardrobe.readyForOut)
+        if (Input.GetKeyDown(KeyCode.E))
         {
             elevatorOpen = true;
             elevatorOpenText.text = "Elevator Open : Yes";

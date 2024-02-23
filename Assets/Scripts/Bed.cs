@@ -7,11 +7,23 @@ public class Bed : MonoBehaviour
 {
     public TMP_Text bedClose;
     public GameObject InteractE;
+    public GameObject workRoom;
 
     private void OnTriggerEnter(Collider other)
     {
         bedClose.text = "Bed Close : Yes";
         InteractE.SetActive(true);
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (Input.GetKeyDown(KeyCode.E) && Brunch.work == 3)
+        {
+            Brunch.day += 1;
+            Brunch.work = 0;
+            Brunch.puzzle = 0;
+            workRoom.SetActive(true);
+        }
     }
 
     private void OnTriggerExit(Collider other)

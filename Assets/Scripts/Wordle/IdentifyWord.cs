@@ -10,20 +10,21 @@ public class IdentifyWord : DisplayWord
     "music", "sunny", "cloud", "books", "night", "stars", "smile", "grass", "queen", "kitty",
     "ocean", "peace", "heart", "sugar", "storm", "fairy", "magic", "trick", "bread", "feast",
     "green", "earth", "water", "flame", "crown", "wings", "cloud", "mount", "money", "dream",
-    "juice", "candy", "fruits", "cheer", "salsa", "dance", "party", "happy", "funny", "laugh",
+    "juice", "candy", "cheer", "salsa", "dance", "party", "happy", "funny", "laugh",
     "jokes", "snack", "dream", "bloom", "wheat", "honey", "sunny", "light", "shine", "globe",
     "space", "moon", "stars", "night", "magic", "spell", "music", "dance", "dream", "cloud",
     "storm", "peace", "heart", "smile", "spark", "color", "peace", "unity", "brave", "smart",
-    "swift", "quick", "power", "magic", "heart", "love", "peace", "dream", "happy", "smile", "music", "sweet", "bliss", "alive", "calm", "charm", "clean", "fresh", "quiet" };
+    "swift", "quick", "power", "magic", "heart", "peace", "dream", "happy", "smile", "music", "sweet", "bliss", "alive", "calm", "charm", "clean", "fresh", "quiet" };
     private string actualWord = "";
     public TMP_Text WinLoseStatusText;
     public TMP_Text triesText;
     public TMP_Text wordText;
-    // public GameObject RetryButton;
+    public GameObject moveForward;
     public static string gameState = "";
     private int currentChar = 0;
     public static int tries = 0;
     private int temp;
+    public Timer timer;
     System.Random Random = new System.Random();
 
 
@@ -35,6 +36,7 @@ public class IdentifyWord : DisplayWord
     private void Update()
     {
         GuessWord();
+        Debug.Log("game state " + gameState);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
@@ -77,7 +79,7 @@ public class IdentifyWord : DisplayWord
                     {
                         WinLoseStatusText.text = "DAMNN!";
                         gameState = "win";
-                        // RetryButton.SetActive(true);
+                        moveForward.SetActive(true);
                     }
                     else
                     {
@@ -87,7 +89,7 @@ public class IdentifyWord : DisplayWord
                             wordText.text = "THE WORD WAS '" + actualWord.ToUpper() + "'";
                             triesText.text = "TRIES: 6";
                             gameState = "lose";
-                            // RetryButton.SetActive(true);
+                            moveForward.SetActive(true);
                         }
                         else
                         {
@@ -97,7 +99,7 @@ public class IdentifyWord : DisplayWord
                             triesText.text = "TRIES: " + tries;
                             WinLoseStatusText.text = "GUESS THE COMPLETE WORD";
                             gameState = "";
-                            // RetryButton.SetActive(false);
+                            moveForward.SetActive(false);
                             currentChar = 0;
                             return;
                         }
@@ -109,6 +111,14 @@ public class IdentifyWord : DisplayWord
         else
         {
             WinLoseStatusText.text = "GUESS THE COMPLETE WORD";
+        }
+        if (timer.time == 0)
+        {
+            WinLoseStatusText.text = "WORTHLESS!";
+            wordText.text = "THE WORD WAS '" + actualWord.ToUpper() + "'";
+            triesText.text = "TRIES: " + tries.ToString();
+            moveForward.SetActive(true);
+            gameState = "lose";
         }
     }
     private void ColorSet(Color color)

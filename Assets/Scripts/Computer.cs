@@ -11,7 +11,10 @@ public class Computer : MonoBehaviour
     public GameObject WordleCam;
     public GameObject InteractE;
     public Animator levelLoader;
+    public static Vector3 playerPosition;
+    public static Vector3 playerDirection;
     public bool playingPuzzle = false;
+    private string[] puzzleToLoad = { "Wordle", "Braille", "Vigenere" };
 
     private void OnTriggerEnter(Collider other)
     {
@@ -21,8 +24,10 @@ public class Computer : MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && Brunch.puzzle == Brunch.work && Brunch.work != 3)
         {
+            playerPosition = other.gameObject.transform.position;
+            playerDirection = other.gameObject.transform.eulerAngles;
             StartCoroutine(OpenWordle());
         }
     }
@@ -38,7 +43,7 @@ public class Computer : MonoBehaviour
         levelLoader.Play("FadeInBlack");
         WordleCam.SetActive(true);
         yield return new WaitForSeconds(1.5f);
-        SceneManager.LoadScene("Wordle");
+        SceneManager.LoadScene(puzzleToLoad[Brunch.puzzle]);
 
     }
 }
