@@ -11,9 +11,10 @@ public class Pill : MonoBehaviour
     {
         InteractE.SetActive(true);
     }
+
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
         {
             gameObject.SetActive(false);
             workPlace.SetActive(false);

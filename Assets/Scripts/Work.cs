@@ -6,14 +6,16 @@ public class Work : MonoBehaviour
 {
     public GameObject InteractE;
     public GameObject pill;
+    public bool inRange;
     private void OnTriggerEnter(Collider other)
     {
         InteractE.SetActive(true);
+        inRange = true;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && Brunch.puzzle != Brunch.work && IdentifyWord.gameState != "")
+        if (Input.GetKeyDown(KeyCode.E) && Brunch.puzzle != Brunch.work && IdentifyWord.gameState != "" && inRange)
         {
             Brunch.work += 1;
             pill.SetActive(true);
@@ -25,5 +27,6 @@ public class Work : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
         InteractE.SetActive(true);
+        inRange = false;
     }
 }

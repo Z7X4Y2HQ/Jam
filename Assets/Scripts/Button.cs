@@ -4,6 +4,8 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
+using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class Button : MonoBehaviour
 {
@@ -13,6 +15,7 @@ public class Button : MonoBehaviour
     public Animator levelLoader;
     public Currency currency;
     public Timer timer;
+    public UnityEngine.UI.Button moveForwardButton;
 
     private void Awake()
     {
@@ -20,6 +23,7 @@ public class Button : MonoBehaviour
     }
     public void TestYourself()
     {
+        moveForwardButton.enabled = true;
         difficulties.SetActive(true);
         puzzleMenu.SetActive(false);
     }
@@ -82,6 +86,7 @@ public class Button : MonoBehaviour
 
     public IEnumerator MoveForwardCoroutine()
     {
+        moveForwardButton.enabled = false;
         if (IdentifyWord.gameState == "lose")
         {
             Brunch.life -= 1;

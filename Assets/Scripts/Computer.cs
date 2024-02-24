@@ -14,30 +14,37 @@ public class Computer : MonoBehaviour
     public static Vector3 playerPosition;
     public static Vector3 playerDirection;
     public bool playingPuzzle = false;
+    private Transform playerTransform;
     private string[] puzzleToLoad = { "Wordle", "Braille", "Vigenere" };
+    private bool inCompRange;
 
     private void OnTriggerEnter(Collider other)
     {
         computerClose.text = "Computer Close : Yes";
         InteractE.SetActive(true);
+        inCompRange = true;
     }
-
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && Brunch.puzzle == Brunch.work && Brunch.work != 3 && inCompRange)
+        {
+            playerPosition = playerTransform.position;
+            playerDirection = playerTransform.eulerAngles;
+            StartCoroutine(OpenPuzzle());
+        }
+    }
     private void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown(KeyCode.E) && Brunch.puzzle == Brunch.work && Brunch.work != 3)
-        {
-            playerPosition = other.gameObject.transform.position;
-            playerDirection = other.gameObject.transform.eulerAngles;
-            StartCoroutine(OpenWordle());
-        }
+        playerTransform = other.gameObject.transform;
     }
     private void OnTriggerExit(Collider other)
     {
         computerClose.text = "Computer Close : No";
         InteractE.SetActive(false);
+        inCompRange = false;
     }
 
-    private IEnumerator OpenWordle()
+    private IEnumerator OpenPuzzle()
     {
         levelLoader.gameObject.SetActive(true);
         levelLoader.Play("FadeInBlack");

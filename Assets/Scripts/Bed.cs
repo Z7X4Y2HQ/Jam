@@ -8,16 +8,18 @@ public class Bed : MonoBehaviour
     public TMP_Text bedClose;
     public GameObject InteractE;
     public GameObject workRoom;
+    private bool inBedRange;
 
     private void OnTriggerEnter(Collider other)
     {
         bedClose.text = "Bed Close : Yes";
         InteractE.SetActive(true);
+        inBedRange = true;
     }
 
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E) && Brunch.work == 3)
+        if (Input.GetKeyDown(KeyCode.E) && Brunch.work == 3 && inBedRange)
         {
             Brunch.day += 1;
             Brunch.work = 0;
@@ -30,5 +32,6 @@ public class Bed : MonoBehaviour
     {
         bedClose.text = "Bed Close : No";
         InteractE.SetActive(false);
+        inBedRange = false;
     }
 }
